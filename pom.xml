@@ -23,6 +23,9 @@
         <java.version>17</java.version>
         <sonar.projectKey>hello-service</sonar.projectKey>
         <sonar.host.url>http://10.0.12.24:9000</sonar.host.url>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.exclusions>**/Application.java</sonar.exclusions>
+        <sonar.coverage.exclusions>**/Application.java</sonar.coverage.exclusions>
     </properties>
 
     <dependencies>
@@ -78,7 +81,7 @@
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>test</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>

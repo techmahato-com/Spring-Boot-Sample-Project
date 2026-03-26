@@ -40,7 +40,7 @@ pipeline {
             steps {
                 dir('app') {
                     withSonarQubeEnv("${SONARQUBE_ENV}") {
-                        sh '${MAVEN} sonar:sonar -q'
+                        sh '${MAVEN} verify sonar:sonar -q'
                     }
                 }
             }
