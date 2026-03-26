@@ -25,23 +25,17 @@ pipeline {
             }
         }
 
-        stage('Unit Test') {
+        stage('Unit Test + SonarQube Scan') {
             steps {
-                dir('app') { sh '${MAVEN} test -q' }
+                dir('app') {
+                    withSonarQubeEnv("${SONARQUBE_ENV}") {
+                        sh '${MAVEN} clean verify sonar:sonar -q'
+                    }
+                }
             }
             post {
                 always {
                     junit 'app/target/surefire-reports/*.xml'
-                }
-            }
-        }
-
-        stage('SonarQube Scan') {
-            steps {
-                dir('app') {
-                    withSonarQubeEnv("${SONARQUBE_ENV}") {
-                        sh '${MAVEN} verify sonar:sonar -q'
-                    }
                 }
             }
         }
